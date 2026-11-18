@@ -28,9 +28,9 @@ Each skill is a self-contained `SKILL.md` file that follows the open [Agent Skil
 
 ## Available skills
 
-| Skill | What it does |
-| --- | --- |
-| [`pitchcraft-brainstorm`](skills/pitchcraft-brainstorm/SKILL.md) | Takes you from a rough idea to a finished session title and abstract for a talk, workshop, panel or keynote. It works through short rounds of multiple-choice questions (event, audience, tone, length limits), drafts several title options to choose from, then builds and refines the abstract. Character and word limits are enforced throughout. It can start from scratch or from an existing talk, draft, paper or blog post. |
+| Skill | What it does | Docs |
+| --- | --- | --- |
+| [`pitchcraft-brainstorm`](skills/pitchcraft-brainstorm/SKILL.md) | Takes you from a rough idea to a finished session title and abstract for a talk, workshop, panel or keynote. It asks short rounds of multiple-choice questions (event, audience, tone, length limits), offers 4 title candidates to pick from, then drafts and refines the abstract with the full draft always in view. Character and word limits are enforced throughout. It can start from scratch or from an existing talk, draft, paper or blog post. Sessions are saved as JSON files (`~/.pitchcraft/sessions/` by default), so you can resume later in any agent, and the result can be exported as Markdown, text or Word. | [Usage guide](skills/pitchcraft-brainstorm/README.md) |
 
 ## Installation
 
@@ -121,7 +121,7 @@ If your assistant doesn't support skills, use the skill as a prompt:
 
 ## Contributing
 
-New skills and improvements are welcome. Add each skill as `skills/<skill-name>/SKILL.md` with `name` and `description` front matter, keep it platform-agnostic, and add a row to the table above.
+New skills and improvements are welcome. Add each skill as `skills/<skill-name>/SKILL.md` with `name` and `description` front matter, keep it platform-agnostic, add a `README.md` usage guide next to it, and add a row to the table above.
 
 ## License
 
