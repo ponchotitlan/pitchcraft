@@ -1,0 +1,145 @@
+{
+  "theme": {
+    "a1": "#2dd4bf",
+    "a2": "#8b5cf6",
+    "a3": "#34d399"
+  },
+  "session": {
+    "title": "Own It, Run It, Trust It",
+    "headline": "Running AI agents your team can [[actually trust]]",
+    "event": "Example Conf 2026",
+    "pillars": [
+      "Own it",
+      "Run it",
+      "Trust it"
+    ],
+    "lang": "en"
+  },
+  "brand": {
+    "logos": [
+      {
+        "name": "Your company",
+        "light": "images/logo-light.svg",
+        "dark": "images/logo-dark.svg",
+        "height": 38,
+        "href": "https://example.com"
+      }
+    ]
+  },
+  "deck": {
+    "slides": [
+      {
+        "type": "cover",
+        "title": "Running AI agents your team can [[actually trust]]",
+        "sub": "Own It, Run It, Trust It",
+        "qr": {
+          "img": "images/qr-take-home.png",
+          "href": "https://example.com/my-talk",
+          "caption": "Take this presentation home"
+        }
+      },
+      {
+        "type": "statement",
+        "eyebrow": "The problem",
+        "title": "Agents are easy to demo and hard to run",
+        "lead": "Everyone has a prototype. Few have an answer to **who approved it**.",
+        "punch": "Platform engineering is the missing layer."
+      },
+      {
+        "type": "pillars",
+        "title": "Three ideas for the next hour",
+        "lead": "Everything in this session hangs from these."
+      },
+      {
+        "type": "cards",
+        "title": "What every agent needs",
+        "columns": 3,
+        "cards": [
+          {
+            "emoji": "🪪",
+            "title": "An identity",
+            "text": "Who is acting, and on whose behalf?"
+          },
+          {
+            "emoji": "🔧",
+            "title": "The right tools",
+            "text": "Access that matches the job, nothing more."
+          },
+          {
+            "emoji": "📚",
+            "title": "The right knowledge",
+            "text": "Runbooks and history it can actually use."
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "title": "How we got there",
+        "items": [
+          {
+            "title": "Start with one workflow",
+            "text": "Pick something people already do on a Monday."
+          },
+          {
+            "title": "Add guardrails before scale",
+            "text": "Approvals and audit first, then autonomy."
+          },
+          "Measure what happened"
+        ]
+      },
+      {
+        "type": "compare",
+        "title": "Build it or adopt it?",
+        "left": {
+          "label": "From scratch",
+          "items": [
+            "Months of glue code",
+            "You own every part"
+          ]
+        },
+        "right": {
+          "label": "Open source",
+          "items": [
+            "Shared parts, shared fixes",
+            "Swap what you need"
+          ]
+        },
+        "punch": "You do not have to reinvent the parts."
+      },
+      {
+        "type": "media",
+        "title": "Run it",
+        "mode": "Demo",
+        "cue": "A release went out 25 minutes ago. Payments are failing.",
+        "image": "images/demo.png",
+        "alt": "A reaction GIF about everything being on fire"
+      },
+      {
+        "type": "video",
+        "title": "Demo video",
+        "youtube": "dQw4w9WgXcQ"
+      },
+      {
+        "type": "links",
+        "title": "Questions",
+        "lead": "Scan a code, or click a title, to keep going.",
+        "items": [
+          {
+            "emoji": "🌐",
+            "title": "The project website",
+            "url": "https://example.com",
+            "sub": "Start here",
+            "img": "images/qr-site.png"
+          },
+          {
+            "emoji": "🎓",
+            "title": "Free hands-on lab",
+            "url": "https://example.com/lab",
+            "sub": "Learn it",
+            "img": "images/qr-lab.png"
+          }
+        ]
+      }
+    ]
+  }
+}

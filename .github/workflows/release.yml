@@ -1,0 +1,52 @@
+# Publishes one ZIP per skill on every version tag, ready to upload to Claude.ai / Claude Desktop
+# (Settings -> Capabilities -> Skills). Each ZIP holds the skill folder with SKILL.md inside it.
+name: Release skills
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to (re)build the ZIPs for"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+
+      - name: Check every skill has SKILL.md front matter
+        run: |
+          for d in skills/*/; do
+            f="$d/SKILL.md"
+            head -1 "$f" | grep -qx -- '---' || { echo "::error file=$f::missing front matter"; exit 1; }
+            grep -q '^name: ' "$f" && grep -q '^description: ' "$f" || { echo "::error file=$f::needs name and description"; exit 1; }
+          done
+
+      - name: Build ZIPs
+        run: |
+          mkdir dist
+          cd skills
+          for d in */; do
+            n="${d%/}"
+            zip -qr "../dist/$n.zip" "$n" -x '*.DS_Store' -x '*/__pycache__/*' -x '*/build/*'
+          done
+          ls -l ../dist
+
+      - name: Publish release
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/*.zip --clobber
+          else
+            gh release create "$TAG" dist/*.zip --title "$TAG" --generate-notes
+          fi
