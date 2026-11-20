@@ -136,10 +136,8 @@ If your assistant doesn't support skills, use the skill as a prompt. This works 
 
 > Skill locations and commands change as platforms evolve. If a path above doesn't work, check your agent's documentation for where it loads skills from.
 
-## Contributing
+---
 
-New skills and improvements are welcome. Add each skill as `skills/<skill-name>/SKILL.md` with `name` and `description` front matter, keep it platform-agnostic, add a `README.md` usage guide next to it, and add a row to the table above. Pushing a tag like `v1.2.0` publishes a release with one ZIP per skill (see `.github/workflows/release.yml`).
-
-## License
-
-[Apache 2.0](LICENSE)
+<div align="center"><br />
+    Made with ☕️ by Poncho Sandoval - <code>Developer Advocate 🥑 @ DevNet - Cisco Systems 🇵🇹</code><br /><br />
+</div>
