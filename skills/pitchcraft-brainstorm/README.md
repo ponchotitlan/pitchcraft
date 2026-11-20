@@ -4,7 +4,7 @@ Turn a rough idea into a finished session title and abstract for a conference, m
 
 It works for talks, workshops, panels, keynotes and lightning talks. You can start from scratch, or from an existing talk, slide deck, paper, blog post or rough draft.
 
-> Not installed yet? See [Installation](../../README.md#installation) in the main README.
+> Not installed yet? See [Installation](../../README.md#-installation) in the main README.
 
 ## Starting a session
 

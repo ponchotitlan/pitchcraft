@@ -97,7 +97,7 @@ Without `--write` nothing changes. With it, the `theme` block is replaced, your 
 
 ## Installing
 
-See [Installation](../../README.md#installation) in the main README. It has steps for Claude Code, Claude.ai / Claude Desktop, Codex, Copilot, Cursor, Gemini CLI and plain chat assistants.
+See [Installation](../../README.md#-installation) in the main README. It has steps for Claude Code, Claude.ai / Claude Desktop, Codex, Copilot, Cursor, Gemini CLI and plain chat assistants.
 
 Two things specific to this skill:
 
