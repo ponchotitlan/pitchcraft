@@ -27,6 +27,7 @@ brief ─┬─► cfp-analyser ───────────────┐
 - **Parallel waves.** Analyser and Researcher run at the same time. The Audience starts as soon as the Researcher is done, the Committee when both are done, and the Synthesiser last.
 - **Needs subagents for parallel mode.** In an agent that can spawn subagents, the waves run concurrently. Without them, the same agent plays the five roles one after another and gives the same kind of report, just slower.
 - **Independent opinions.** The Committee and Audience never see each other's output. Only the Synthesiser sees both and flags where they disagreed.
+- **It asks for what it needs.** Before any agent starts, it collects the title, abstract, event name, **CFP URL** and **event URL**, in one questionnaire form when your agent can show one, otherwise in one message. It won't run without sources unless you say there are none.
 - **Your sources only.** The agents read the event URL and CFP URL you give them, plus anything else you paste, and nothing more. If a page can't be fetched, paste its text. With no source at all, that agent says what it couldn't verify and the report flags it.
 - **Scores.** Each criterion is 1 to 5 with a reason. Committee and Attendee scores are each out of 100 and shown with their verdicts (accept/borderline/reject and would attend yes/maybe/no). There is no combined overall score, so a disagreement between the two seats is never averaged away.
 - **Nothing is stored.** You get a Markdown report on screen or as a download.
@@ -34,7 +35,7 @@ brief ─┬─► cfp-analyser ───────────────┐
 ## What you need
 
 - Title and abstract (verbatim), or a [`pitchcraft-brainstorm`](../pitchcraft-brainstorm/README.md) session file.
-- The event name. The event URL and CFP URL are optional but make the review much sharper.
+- The event name, the **CFP URL** and the **event URL** (or pasted text from those pages). The review is only as good as these sources, so the skill asks for them if you leave them out.
 
 ## Questions to try
 
