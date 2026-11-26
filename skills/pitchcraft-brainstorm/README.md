@@ -93,7 +93,7 @@ Nothing is stored on your machine or in the agent's memory, so the skill behaves
 
 **When it offers:** after you confirm the context, when you lock a title, occasionally while refining the abstract, and at the end. It's always an optional extra, never a blocker, and you can ask for the file at any moment ("save this").
 
-**Resuming:** start a new conversation, pick **Resume a saved session file** as the starting point, and paste the file, attach it or give a URL. The agent skips everything the file already answers and continues from where you stopped.
+**Resuming:** start a new conversation, say "resume this session" and paste the file, attach it or give a URL. The agent skips everything the file already answers and continues from where you stopped.
 
 **Templates and examples:** blank copies of both file formats are in [`templates/`](templates/) and filled-in fictional samples in [`examples/`](examples/).
 
@@ -101,7 +101,7 @@ Nothing is stored on your machine or in the agent's memory, so the skill behaves
 
 ## Converting existing material
 
-Already have a finished title and abstract, notes from an earlier brainstorm, or a pile of your past abstracts? Ask the agent to "convert this into a session file" or "turn these into a writing style", or choose **Convert it into a file** as the starting point. Share the material as text, a file or a URL, and you get a Markdown file back with no question rounds.
+Already have a finished title and abstract, notes from an earlier brainstorm, or a pile of your past abstracts? Ask the agent to "convert this into a session file" or "turn these into a writing style", in your first message. Share the material as text, a file or a URL, and you get a Markdown file back with no question rounds.
 
 - **Session file:** your title and abstract are copied word for word, counts are calculated, and anything the material doesn't say is left empty rather than guessed. You can resume a brainstorm from it right away.
 - **Writing style file:** the agent describes the traits it sees across your samples (voice, sentence length, humor, title patterns) in its own words, never quoting you.
