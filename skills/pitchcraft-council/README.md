@@ -26,6 +26,7 @@ brief ─┬─► cfp-analyser ───────────────┐
 
 - **Parallel waves.** Analyser and Researcher run at the same time. The Audience starts as soon as the Researcher is done, the Committee when both are done, and the Synthesiser last.
 - **Needs subagents for parallel mode.** In an agent that can spawn subagents, the waves run concurrently. Without them, the same agent plays the five roles one after another and gives the same kind of report, just slower.
+- **Live progress.** You see what is happening at every step: a task list when your agent has one, plus a one-line status when agents start and finish (`▶️ Wave 1 · Analyser and Researcher reading in parallel`, `✅ Researcher done · Audience started`). In sequential mode it announces each role as it plays it.
 - **Independent opinions.** The Committee and Audience never see each other's output. Only the Synthesiser sees both and flags where they disagreed.
 - **It asks for what it needs.** Before any agent starts, it collects the title, abstract, event name, **CFP URL** and **event URL**, in one questionnaire form when your agent can show one, otherwise in one message. It won't run without sources unless you say there are none.
 - **Your sources only.** The agents read the event URL and CFP URL you give them, plus anything else you paste, and nothing more. If a page can't be fetched, paste its text. With no source at all, that agent says what it couldn't verify and the report flags it.

@@ -71,7 +71,19 @@ When the brief is complete, format it with [`templates/council-brief.md`](templa
 
 **Handoffs:** every agent returns one Markdown block in the format defined in its file. Pass the blocks on unchanged; don't summarize them. If an agent's output is missing a required field, send it back once to fill that field.
 
-**Progress:** after each wave, tell the user in one line what finished and what is running, e.g. `✅ Analyser, Researcher done · ▶️ Committee, Audience running`.
+**Progress: keep the user informed at every step, so the wait is never silent.** Use the best mechanism the environment offers, and combine them:
+
+1. **A live task list, if the environment has one** (a todo, plan or task-list tool, whatever it is called; load its schema first if tools are listed by name only). Create it right after the brief is confirmed, with one item per agent in the council's own words, e.g. `🔍 CFP Analyser: reading the CFP`, `📚 Conference Researcher: studying the event`, `🎯 Programme Committee: scoring`, `🙋 Audience Member: scoring`, `🧠 Synthesiser: consolidating`. Mark an agent in progress the moment it starts and completed the moment its result arrives, so agents running in parallel show as in progress together.
+2. **A short message at every transition**, even when a task list exists, because not every client shows it. Send one when agents start and one when each finishes, naming what is happening now and what it waits for. Keep each to one line with the agent's emoji:
+   - `▶️ Wave 1 · 🔍 Analyser and 📚 Researcher are reading your CFP and event pages in parallel`
+   - `✅ 📚 Researcher done · ▶️ 🙋 Audience started (🔍 Analyser still running)`
+   - `✅ 🔍 Analyser done · ▶️ 🎯 Committee started`
+   - `✅ 🎯 Committee and 🙋 Audience done · ▶️ 🧠 Synthesiser consolidating`
+   - `🏁 Council finished · report below`
+3. **Don't narrate the agents' reasoning or dump their raw output while they run.** Status lines only; the full results go into the final report.
+4. **If a message tool is available that guarantees the user sees the text** (not collapsed between tool calls), use it for these status lines.
+5. **Sequential mode (no subagents):** announce each role before you play it (`▶️ 1/5 · 🔍 CFP Analyser`) and when it's done, so the user still sees where you are.
+6. **If something fails or stalls** (a fetch error, an agent returning an incomplete block), say so in one line as soon as it happens and what you're doing about it, e.g. `⚠️ CFP page couldn't be fetched · asking you to paste it`.
 
 ## Scores
 
