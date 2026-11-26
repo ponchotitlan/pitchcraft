@@ -7,7 +7,7 @@ description: Build an interactive HTML slide deck for a conference talk, worksho
 
 One `session.json` is the source of truth; `kit.py deck` turns it into a single self-contained `deck/index.html` that opens from disk.
 
-Needs only Python 3.8+ (standard library). No network access: fonts (Space Grotesk, Inter, SIL OFL) are bundled and copied next to the deck. Run from anywhere: `python3 <skill-dir>/scripts/kit.py ...`.
+Needs only Python 3.8+ (standard library); `package` output needs docker compose to run. No network access: fonts (Space Grotesk, Inter, SIL OFL) are bundled and copied next to the deck. Run from anywhere: `python3 <skill-dir>/scripts/kit.py ...`.
 
 ## Workflow
 
@@ -20,7 +20,8 @@ Needs only Python 3.8+ (standard library). No network access: fonts (Space Grote
    - **Restyle later** with `python3 scripts/kit.py theme <project-dir>/session.json --from-image ref.png` and/or `--a1 '#hex' --a2 ... --bg ... --mode light|dark`. It prints swatches, the theme JSON and contrast warnings; show them to the user, then re-run with `--write` to save. See "Custom themes" below.
 5. **Build**: `python3 scripts/kit.py deck <project-dir>/session.json` (output in `<project-dir>/build/deck/`, or pass `--out`).
 6. **Look at the result before reporting.** Open `deck/index.html?shot=N` in a browser or headless browser (it shows slide N alone, fully revealed) and check the cover, one dense slide and the closing slide. Do not just say it built.
-7. **Deliver** with a short list of what was made, what you assumed (copy you wrote, defaults), and what the user must replace (placeholder images, QR codes, links).
+7. **Web server (only if asked)**: `python3 scripts/kit.py package <project-dir>/session.json [--deck DIR] [--rebuild] [--force]`. It writes `docker-compose.yml` and `nginx.conf` **into the project dir** and **mounts the deck that already exists** (`build/deck/`, `deck/`, or any folder with `index.html` via `--deck`), read-only, into an nginx container: `cd <project-dir> && docker compose up -d`, then `http://localhost:8080` (`PORT=9000` changes the port). **Never regenerate a deck that exists**: the user may have hand-edited it. `package` only builds from session.json when no deck is found; `--rebuild` is the explicit opt-in, and then it moves the old deck to `<deck>.bak-<time>` first. Do not pass `--rebuild` unless the user asks for it, and do not run `deck` before `package`. It also keeps `docker-compose.yml`/`nginx.conf` the user edited unless `--force`. Do not run compose for the user unless asked.
+8. **Deliver** with a short list of what was made, what you assumed (copy you wrote, defaults), and what the user must replace (placeholder images, QR codes, links).
 
 ## Starting points
 

@@ -6,6 +6,10 @@
                                              content you already have; theme options set the style up front
   python3 kit.py check session.json          validate the config and that every referenced file exists
   python3 kit.py deck  session.json [--out DIR]
+  python3 kit.py package session.json [--deck DIR] [--rebuild] [--force]
+                                             write docker-compose.yml + nginx.conf next to session.json that mount
+                                             the deck that already exists (never rebuilt unless --rebuild; the old
+                                             one is kept as .bak-<time>); `docker compose up` serves it on :8080
   python3 kit.py theme [session.json] [--from-image IMG] [--mode dark|light] [--a1 HEX ...] [--write]
                                              build a theme from manual colours and/or a reference image;
                                              prints it, and saves it into session.json only with --write
@@ -16,6 +20,7 @@ from common import *
 import deck as deck_mod
 import theme as theme_mod
 import outline as outline_mod
+import package as package_mod
 
 
 def check(cfg):
@@ -134,9 +139,12 @@ def cmd_theme(a):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('cmd', choices=['init', 'check', 'deck', 'theme'])
+    ap.add_argument('cmd', choices=['init', 'check', 'deck', 'theme', 'package'])
     ap.add_argument('config', nargs='?')
     ap.add_argument('--out', help='output folder (default: ./build next to the config)')
+    ap.add_argument('--force', action='store_true', help='package: replace docker-compose.yml/nginx.conf you have edited')
+    ap.add_argument('--deck', metavar='DIR', help='package: folder of an existing deck to mount (default: build/deck, deck/ or the talk folder, whichever has index.html)')
+    ap.add_argument('--rebuild', action='store_true', help='package: regenerate the deck from session.json (the existing one is moved to <deck>.bak-<time>)')
     c = ap.add_argument_group('init: start from content you have')
     c.add_argument('--from-outline', metavar='MD', help='Markdown outline: "## Title" per slide, front matter for session and theme (references/outline-format.md)')
     c.add_argument('--from-brainstorm', metavar='ID|PATH', help='a pitchcraft-brainstorm session (id in ~/.pitchcraft/sessions or $PITCHCRAFT_DIR, or a path)')
@@ -167,6 +175,13 @@ def main():
         problems = check(cfg)
         if problems:
             raise Die('Fix these first:\n  - ' + '\n  - '.join(problems))
+        if a.cmd == 'package':
+            d, written, skipped, deck_dir, note = package_mod.package(cfg, out, a.deck, a.rebuild, a.force)
+            print(f'Wrote in {d}: {", ".join(written) or "nothing new"}\nDeck: {note}')
+            if skipped:
+                print(f'Kept your existing {", ".join(skipped)} (differs from the generated one; use --force to replace).')
+            print(f'Launch: cd {d} && docker compose up -d   then open http://localhost:8080  (PORT=9000 to change the port)')
+            return
         p, n = deck_mod.build(cfg, out / 'deck')
         print(f'deck: {n} slides -> {p}')
     except Die as e:

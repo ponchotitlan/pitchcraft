@@ -27,14 +27,20 @@
 
 | Skill | What it does | Docs |
 | --- | --- | --- |
-| 🧠 [`pitchcraft-brainstorm`](skills/pitchcraft-brainstorm/SKILL.md) | Takes you from a rough idea to a finished session title and abstract for a talk, workshop, panel or keynote. It asks short rounds of multiple-choice questions (event, audience, tone, length limits), offers 4 title candidates to pick from, then drafts and refines the abstract with the full draft always in view. Character and word limits are enforced throughout. It can start from scratch or from an existing talk, draft, paper or blog post. Sessions are saved as JSON files (`~/.pitchcraft/sessions/` by default), so you can resume later in any agent, and the result can be exported as Markdown, text or Word. | 📖 [Usage guide](skills/pitchcraft-brainstorm/README.md) |
+| 🧠 [`pitchcraft-brainstorm`](skills/pitchcraft-brainstorm/SKILL.md) | Takes you from a rough idea to a finished session title and abstract for a talk, workshop, panel or keynote. It asks short rounds of multiple-choice questions (event, audience, tone, length limits), offers 4 title candidates to pick from, then drafts and refines the abstract with the full draft always in view. Character and word limits are enforced throughout. It can start from scratch or from an existing talk, draft, paper or blog post. Nothing is stored locally: when you want to keep a session or a writing style, you get it as a Markdown file (download or on screen) and bring it back later by pasting it, attaching it or giving a URL. It can also convert an existing abstract or writing samples into those files, and export the result as Markdown, text or Word. | 📖 [Usage guide](skills/pitchcraft-brainstorm/README.md) |
 | 🎞️ [`pitchcraft-presso`](skills/pitchcraft-presso/SKILL.md) | Turns your talk into an interactive HTML slide deck (keyboard navigation, slide index, step-by-step reveals, QR closing slide). Start from a Markdown outline, a `pitchcraft-brainstorm` session or a guided Q&A. Use the default dark teal-and-violet style, give your own colours, or match the palette of a reference image (logo, brand sheet, event site). Needs Python 3.8+ and nothing else. | 📖 [Usage guide](skills/pitchcraft-presso/README.md) |
+
+## 🔗 Use it straight from the repo URL
+
+No install needed for agents that can read a URL. Give the agent the repo link and ask for what you want, for example: "Read https://github.com/ponchotitlan/pitchcraft and help me write an abstract for my talk."
+
+The agent starts at [`AGENTS.md`](AGENTS.md), which routes the request to the right skill's `SKILL.md` and explains the conventions. `pitchcraft-brainstorm` is instructions only, so this works even when the agent can't run code or write files. `pitchcraft-presso` runs scripts, so it needs an agent that can execute Python (see Requirements below).
 
 ## 📦 Installation
 
-Every skill is a folder under [`skills/`](skills/) containing a `SKILL.md`. Installing a skill means putting that **whole folder** (not just `SKILL.md`: `pitchcraft-presso` also needs its `scripts/`, `assets/` and other subfolders) where your agent looks for skills.
+Every skill is a folder under [`skills/`](skills/) containing a `SKILL.md`. Installing a skill means putting that **whole folder** where your agent looks for skills, not just `SKILL.md`: `pitchcraft-brainstorm` also has `templates/` and `examples/`, and `pitchcraft-presso` has its `scripts/`, `assets/` and other subfolders. The release ZIPs include these automatically.
 
-> ⚙️ **Requirements per skill.** `pitchcraft-brainstorm` is instructions only and works anywhere. `pitchcraft-presso` runs Python scripts, so the agent must be able to run code: Claude Code, Codex, Copilot, Cursor and Gemini CLI can on your machine; in Claude.ai and Claude Desktop chat, turn on code execution.
+> ⚙️ **Requirements per skill.** `pitchcraft-brainstorm` is instructions only and works anywhere: it keeps no state, needs no storage and no memory feature, and hands you files rather than writing them to your machine. `pitchcraft-presso` runs Python scripts, so the agent must be able to run code: Claude Code, Codex, Copilot, Cursor and Gemini CLI can on your machine; in Claude.ai and Claude Desktop chat, turn on code execution.
 
 Start by cloning the repo:
 
@@ -83,7 +89,7 @@ These apps don't read skill folders on your computer, so copying to `~/.claude/s
 3. Under **Skills**, upload the ZIP and make sure it is toggled on.
 4. Start a **new** chat, for example: "Help me write a CFP abstract for my KubeCon talk", or "Turn this outline into a slide deck".
 
-In the chat apps the skill runs in Claude's online sandbox, not on your computer. Attach the files it needs (an outline, a reference image, logos, a brainstorm session JSON from `~/.pitchcraft/sessions/`), and download the finished deck from the chat.
+In the chat apps the skill runs in Claude's online sandbox, not on your computer. Attach the files it needs (an outline, a reference image, logos, a saved brainstorm session file), and download what it produces from the chat: the finished deck, or a session or writing style file.
 
 🏢 On Team and Enterprise plans, an admin can share the skill with the whole organization.
 
@@ -126,7 +132,7 @@ Run `/skills list` inside Gemini CLI to confirm it loaded.
 
 ### 🌐 ChatGPT, Gemini web, or any other assistant
 
-If your assistant doesn't support skills, use the skill as a prompt. This works fully for `pitchcraft-brainstorm`. For `pitchcraft-presso` the assistant can write the `session.json` or the outline, but you run `python3 skills/pitchcraft-presso/scripts/kit.py deck session.json` yourself to build the deck.
+If your assistant doesn't support skills, use the skill as a prompt. This works fully for `pitchcraft-brainstorm`; it needs only the contents of `SKILL.md`, since the skeletons of its file formats are included in it, and `templates/` and `examples/` are optional extras. For `pitchcraft-presso` the assistant can write the `session.json` or the outline, but you run `python3 skills/pitchcraft-presso/scripts/kit.py deck session.json` yourself to build the deck.
 
 - 📋 **One-off:** paste the contents of `SKILL.md` (without the `---` front matter) at the start of a chat, followed by your request.
 - 🔁 **Reusable:** paste it into the instructions of a Custom GPT, a Gemini Gem, a Claude Project, or your tool's custom-instructions field.
