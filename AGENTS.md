@@ -10,8 +10,9 @@ This repo is a collection of agent skills for writing and presenting conference 
 | --- | --- |
 | Write, improve or rework a session title and abstract, convert an existing abstract or writing sample into a session or writing style file, or resume a saved session | [`skills/pitchcraft-brainstorm/SKILL.md`](skills/pitchcraft-brainstorm/SKILL.md) |
 | Build an interactive HTML slide deck for a talk | [`skills/pitchcraft-presso/SKILL.md`](skills/pitchcraft-presso/SKILL.md) |
+| Review, score or stress-test a session title and abstract against a specific event and its CFP before submitting | [`skills/pitchcraft-council/SKILL.md`](skills/pitchcraft-council/SKILL.md) |
 
-2. Follow that `SKILL.md` as your instructions for the task. Open other files in the same skill folder only when the `SKILL.md` points to them.
+2. Follow that `SKILL.md` as your instructions for the task. Open other files in the same skill folder (for `pitchcraft-council`, the files in `agents/`) only when the `SKILL.md` points to them.
 
 ## pitchcraft-brainstorm at a glance
 
@@ -20,6 +21,13 @@ This repo is a collection of agent skills for writing and presenting conference 
 - **Inputs.** Anything the user starts from arrives as pasted text, an attached file or a URL.
 - **File formats.** Blank templates are in [`skills/pitchcraft-brainstorm/templates/`](skills/pitchcraft-brainstorm/templates/) and filled-in samples in [`skills/pitchcraft-brainstorm/examples/`](skills/pitchcraft-brainstorm/examples/). The examples are fictional and show the expected shape and level of detail, not wording to reuse.
 - **Human guide.** [`skills/pitchcraft-brainstorm/README.md`](skills/pitchcraft-brainstorm/README.md) lists example requests users can make.
+
+## pitchcraft-council at a glance
+
+- **Orchestrator plus agents.** `SKILL.md` runs five agents defined in [`skills/pitchcraft-council/agents/`](skills/pitchcraft-council/agents/): CFP Analyser, Conference Researcher, Programme Committee, Audience Member, Synthesiser.
+- **Parallel when possible.** Analyser and Researcher run together; Audience starts when the Researcher is done, Committee when both are; Synthesiser last. Use subagents if the platform has them, otherwise play the roles in order.
+- **Pasted sources only.** Fetch just the event and CFP URLs the user gives. Never browse beyond them.
+- **No local storage.** The report is handed over as Markdown, like the other skills.
 
 ## Conventions
 

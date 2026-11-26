@@ -21,26 +21,27 @@
 
 🎤✨ A collection of agent skills and prompts that help you write a strong submission for any upcoming event or conference, and then present it: titles, abstracts, CFP answers, slide decks and more.
 
-🧩 Each skill is a self-contained `SKILL.md` file that follows the open [Agent Skills](https://agentskills.io) format. They describe behavior, not platform-specific tools, so the same skill works in Claude, Codex, Copilot, Cursor, Gemini and other agents that support skills. Agents without skill support can use the file as a plain prompt.
+🧩 Each skill is a self-contained folder with a `SKILL.md` file that follows the open [Agent Skills](https://agentskills.io) format. They describe behavior, not platform-specific tools, so the same skill works in Claude, Codex, Copilot, Cursor, Gemini and other agents that support skills. Agents without skill support can use the file as a plain prompt.
 
 ## 🧰 Available skills
 
 | Skill | What it does | Docs |
 | --- | --- | --- |
 | 🧠 [`pitchcraft-brainstorm`](skills/pitchcraft-brainstorm/SKILL.md) | Takes you from a rough idea to a finished session title and abstract for a talk, workshop, panel or keynote. It asks short rounds of multiple-choice questions (event, audience, tone, length limits), offers 4 title candidates to pick from, then drafts and refines the abstract with the full draft always in view. Character and word limits are enforced throughout. It can start from scratch or from an existing talk, draft, paper or blog post. Nothing is stored locally: when you want to keep a session or a writing style, you get it as a Markdown file (download or on screen) and bring it back later by pasting it, attaching it or giving a URL. It can also convert an existing abstract or writing samples into those files, and export the result as Markdown, text or Word. | 📖 [Usage guide](skills/pitchcraft-brainstorm/README.md) |
+| 🏛️ [`pitchcraft-council`](skills/pitchcraft-council/SKILL.md) | Stress-tests your session title and abstract before you submit it. A council of five agents (CFP Analyser, Conference Researcher, Programme Committee Member, Audience Member and Synthesiser) reads it from each seat, running in parallel where they don't depend on each other. You get committee and attendee scores, the top rejection risks, two title rewrites, a full abstract rewrite and five ranked edits. It uses only the event and CFP URLs you paste. Works best in agents that can spawn subagents; otherwise it plays the roles one by one. | 📖 [Usage guide](skills/pitchcraft-council/README.md) |
 | 🎞️ [`pitchcraft-presso`](skills/pitchcraft-presso/SKILL.md) | Turns your talk into an interactive HTML slide deck (keyboard navigation, slide index, step-by-step reveals, QR closing slide). Start from a Markdown outline, a `pitchcraft-brainstorm` session or a guided Q&A. Use the default dark teal-and-violet style, give your own colours, or match the palette of a reference image (logo, brand sheet, event site). Needs Python 3.8+ and nothing else. | 📖 [Usage guide](skills/pitchcraft-presso/README.md) |
 
 ## 🔗 Use it straight from the repo URL
 
 No install needed for agents that can read a URL. Give the agent the repo link and ask for what you want, for example: "Read https://github.com/ponchotitlan/pitchcraft and help me write an abstract for my talk."
 
-The agent starts at [`AGENTS.md`](AGENTS.md), which routes the request to the right skill's `SKILL.md` and explains the conventions. `pitchcraft-brainstorm` is instructions only, so this works even when the agent can't run code or write files. `pitchcraft-presso` runs scripts, so it needs an agent that can execute Python (see Requirements below).
+The agent starts at [`AGENTS.md`](AGENTS.md), which routes the request to the right skill's `SKILL.md` and explains the conventions. `pitchcraft-brainstorm` is instructions only, so this works even when the agent can't run code or write files. `pitchcraft-council` is instructions only too, and runs fastest in an agent that can spawn subagents. `pitchcraft-presso` runs scripts, so it needs an agent that can execute Python (see Requirements below).
 
 ## 📦 Installation
 
-Every skill is a folder under [`skills/`](skills/) containing a `SKILL.md`. Installing a skill means putting that **whole folder** where your agent looks for skills, not just `SKILL.md`: `pitchcraft-brainstorm` also has `templates/` and `examples/`, and `pitchcraft-presso` has its `scripts/`, `assets/` and other subfolders. The release ZIPs include these automatically.
+Every skill is a folder under [`skills/`](skills/) containing a `SKILL.md`. Installing a skill means putting that **whole folder** where your agent looks for skills, not just `SKILL.md`: `pitchcraft-brainstorm` also has `templates/` and `examples/`, `pitchcraft-council` has its `agents/` folder with the five council members, and `pitchcraft-presso` has its `scripts/`, `assets/` and other subfolders. The release ZIPs include these automatically.
 
-> ⚙️ **Requirements per skill.** `pitchcraft-brainstorm` is instructions only and works anywhere: it keeps no state, needs no storage and no memory feature, and hands you files rather than writing them to your machine. `pitchcraft-presso` runs Python scripts, so the agent must be able to run code: Claude Code, Codex, Copilot, Cursor and Gemini CLI can on your machine; in Claude.ai and Claude Desktop chat, turn on code execution.
+> ⚙️ **Requirements per skill.** `pitchcraft-brainstorm` is instructions only and works anywhere: it keeps no state, needs no storage and no memory feature, and hands you files rather than writing them to your machine. `pitchcraft-council` is instructions only as well, and runs its agents in parallel when your agent can spawn subagents (Claude Code and most coding agents can); without that it plays the five roles one after another, just more slowly. `pitchcraft-presso` runs Python scripts, so the agent must be able to run code: Claude Code, Codex, Copilot, Cursor and Gemini CLI can on your machine; in Claude.ai and Claude Desktop chat, turn on code execution.
 
 Start by cloning the repo:
 
@@ -73,13 +74,13 @@ mkdir -p .claude/skills
 cp -r skills/* .claude/skills/
 ```
 
-Start a new Claude Code session (skills are loaded at start-up). Claude picks a skill up automatically when your request matches it, or you can call one directly with `/pitchcraft-brainstorm` or `/pitchcraft-presso`. In Claude Desktop, this applies to the **Code** tab only; the chat tab needs the upload below.
+Start a new Claude Code session (skills are loaded at start-up). Claude picks a skill up automatically when your request matches it, or you can call one directly with `/pitchcraft-brainstorm`, `/pitchcraft-presso` or `/pitchcraft-council`. In Claude Desktop, this applies to the **Code** tab only; the chat tab needs the upload below.
 
 ### 💬 Claude.ai and Claude Desktop (chat)
 
 These apps don't read skill folders on your computer, so copying to `~/.claude/skills/` has no effect here. Upload each skill as a ZIP instead:
 
-1. Get the ZIP: download `pitchcraft-brainstorm.zip` or `pitchcraft-presso.zip` from the [latest release](https://github.com/ponchotitlan/pitchcraft/releases/latest), or build it from your clone:
+1. Get the ZIP: download `pitchcraft-brainstorm.zip`, `pitchcraft-council.zip` or `pitchcraft-presso.zip` from the [latest release](https://github.com/ponchotitlan/pitchcraft/releases/latest), or build it from your clone:
    ```bash
    cd skills
    zip -r pitchcraft-presso.zip pitchcraft-presso -x '*.DS_Store'
@@ -132,7 +133,7 @@ Run `/skills list` inside Gemini CLI to confirm it loaded.
 
 ### 🌐 ChatGPT, Gemini web, or any other assistant
 
-If your assistant doesn't support skills, use the skill as a prompt. This works fully for `pitchcraft-brainstorm`; it needs only the contents of `SKILL.md`, since the skeletons of its file formats are included in it, and `templates/` and `examples/` are optional extras. For `pitchcraft-presso` the assistant can write the `session.json` or the outline, but you run `python3 skills/pitchcraft-presso/scripts/kit.py deck session.json` yourself to build the deck.
+If your assistant doesn't support skills, use the skill as a prompt. This works fully for `pitchcraft-brainstorm`; it needs only the contents of `SKILL.md`, since the skeletons of its file formats are included in it, and `templates/` and `examples/` are optional extras. `pitchcraft-council` also works this way: paste `SKILL.md` followed by the five files in `agents/`, and the assistant plays the council one role at a time. For `pitchcraft-presso` the assistant can write the `session.json` or the outline, but you run `python3 skills/pitchcraft-presso/scripts/kit.py deck session.json` yourself to build the deck.
 
 - 📋 **One-off:** paste the contents of `SKILL.md` (without the `---` front matter) at the start of a chat, followed by your request.
 - 🔁 **Reusable:** paste it into the instructions of a Custom GPT, a Gemini Gem, a Claude Project, or your tool's custom-instructions field.

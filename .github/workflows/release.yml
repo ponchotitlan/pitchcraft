@@ -32,6 +32,11 @@ jobs:
             head -1 "$f" | grep -qx -- '---' || { echo "::error file=$f::missing front matter"; exit 1; }
             grep -q '^name: ' "$f" && grep -q '^description: ' "$f" || { echo "::error file=$f::needs name and description"; exit 1; }
           done
+          for f in skills/*/agents/*.md; do
+            [ -e "$f" ] || continue
+            head -1 "$f" | grep -qx -- '---' || { echo "::error file=$f::missing front matter"; exit 1; }
+            grep -q '^name: ' "$f" && grep -q '^description: ' "$f" || { echo "::error file=$f::needs name and description"; exit 1; }
+          done
 
       - name: Build ZIPs
         run: |
